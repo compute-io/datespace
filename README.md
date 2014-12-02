@@ -22,7 +22,7 @@ To use the module,
 var datespace = require( 'compute-datespace' );
 ```
 
-#### dataspace( start, stop[, length, opts] )
+#### datespace( start, stop[, length, opts] )
 
 Generates an `array` of linearly spaced [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects. If a `length` is not provided, the default output `array` length is `100`.
 
