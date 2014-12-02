@@ -19,18 +19,95 @@ For use in the browser, use [browserify](https://github.com/substack/node-browse
 To use the module,
 
 ``` javascript
-var foo = require( 'compute-datespace' );
+var datespace = require( 'compute-datespace' );
 ```
 
-#### foo( arr )
+#### dataspace( start, stop[, length, opts] )
 
-What does this function do?
+Generates an `array` of linearly spaced _Date_ objects. If a `length` is not provided, the default output `array` length is `100`.
+
+``` javascript
+var stop = '2014-12-02T07:00:54.973Z',
+	start = new Date( stop ) - 60000;
+
+var arr = datespace( start, stop, 6 );
+// returns []
+```
+
+The `start` and `stop` times may be either _Date_ objects, date strings, Unix timestamps, or JavaScript timestamps.
+
+``` javascript
+var start, stop, arr;
+
+// JavaScript timestamps:
+stop = 1417503654973;
+start = new Date( stop - 60000 );
+
+arr = datespace( start, stop, 6 );
+// returns []
+
+// Unix timestamps:
+stop = 1417503655;
+start = stop - 60;
+
+arr = datespace( start, stop, 6 );
+// returns []
+```
+
+The output `array` is guaranteed to include the `start` and `end` times. Beware, however, that values between the `start` and `end` are subject to rounding errors. For example,
+
+``` javascript
+var arr = datespace( 1417503655000, 1417503655001, 3 );
+// returns [ 1417503655000, 1417503655000, 1417503655001 ]
+```
+
+where sub-milliseconds are truncated by the _Date_ constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
+
+By default, fractional timestamps are floored. To specify that timestamps be always rounded up or to the nearest integer, set the `round` option (default: `floor`).
+
+``` javascript
+// Equivalent of Math.ceil():
+var arr = datespace( 1417503655000, 1417503655001, 3, { 'round': 'ceil' } );
+// returns [ 1417503655000, 1417503655001, 1417503655001 ]
+
+// Equivalent of Math.round():
+var arr = datespace( 1417503655000, 1417503655001, 3, { 'round': 'round' } );
+// returns [ 1417503655000, 1417503655001, 1417503655001 ]
+```
+
+
+
+## Notes
+
+This function is similar to [compute-linspace](https://github.com/compute-io/linspace).
+
 
 
 ## Examples
 
 ``` javascript
-var foo = require( 'compute-datespace' );
+var datespace = require( 'compute-datespace' ),
+	start,
+	stop,
+	arr;
+
+start = '2014-12-02T07:00:54.973Z';
+stop = new Date( start ) - 100000;
+
+// Default behavior:
+arr = datespace( start, stop );
+console.log( arr.join( '\n' ) );
+
+// Specify length:
+arr = datespace( start, stop, 10 );
+console.log( arr.join( '\n' ) );
+
+arr = datespace( start, stop, 11 );
+console.log( arr.join( '\n' ) );
+
+// Create an array with decremented values:
+arr = datespace( stop, start, 11 );
+console.log( arr.join( '\n' ) );
 ```
 
 To run the example code from the top-level application directory,

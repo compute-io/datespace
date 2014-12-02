@@ -25,12 +25,22 @@
   "keywords": [
     "compute.io",
     "compute",
-    "computation"
+    "computation",
+    "mathematics",
+    "math",
+    "array",
+    "utilities",
+    "utils",
+    "linear",
+    "date"
   ],
   "bugs": {
     "url": "https://github.com/compute-io/datespace/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "validate.io-integer": "^1.0.2",
+    "validate.io-object": "^1.0.0"
+  },
   "devDependencies": {
     "chai": "1.x.x",
     "mocha": "1.x.x",
