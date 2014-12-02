@@ -2,7 +2,7 @@ datespace
 ===
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Dependencies][dependencies-image]][dependencies-url]
 
-> Generates an array of linearly spaced dates.
+> Generates an array of linearly spaced [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date).
 
 
 ## Installation
@@ -24,7 +24,7 @@ var datespace = require( 'compute-datespace' );
 
 #### dataspace( start, stop[, length, opts] )
 
-Generates an `array` of linearly spaced _Date_ objects. If a `length` is not provided, the default output `array` length is `100`.
+Generates an `array` of linearly spaced [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects. If a `length` is not provided, the default output `array` length is `100`.
 
 ``` javascript
 var stop = '2014-12-02T07:00:54.973Z',
@@ -34,7 +34,7 @@ var arr = datespace( start, stop, 6 );
 // returns []
 ```
 
-The `start` and `stop` times may be either _Date_ objects, date strings, Unix timestamps, or JavaScript timestamps.
+The `start` and `stop` times may be either [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects, date strings, Unix timestamps, or JavaScript timestamps.
 
 ``` javascript
 var start, stop, arr;
@@ -61,9 +61,9 @@ var arr = datespace( 1417503655000, 1417503655001, 3 );
 // returns [ 1417503655000, 1417503655000, 1417503655001 ]
 ```
 
-where sub-milliseconds are truncated by the _Date_ constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
+where sub-milliseconds are truncated by the [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
 
-By default, fractional timestamps are floored. To specify that timestamps be always rounded up or to the nearest integer, set the `round` option (default: `floor`).
+By default, fractional timestamps are floored. To specify that timestamps always be rounded up or to the nearest integer, set the `round` option (default: `floor`).
 
 ``` javascript
 // Equivalent of Math.ceil():
