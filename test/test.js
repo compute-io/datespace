@@ -275,6 +275,32 @@ describe( 'compute-datespace', function tests() {
 		assert.deepEqual( actual, expected );
 	});
 
+	it( 'should accept Unix timestamps', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		stop = new Date( stop ).getTime();
+		stop = Math.floor( stop / 1000 );
+		start = stop - 5;
+
+		actual = datespace( start, stop, 6 );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503650000,
+			1417503651000,
+			1417503652000,
+			1417503653000,
+			1417503654000,
+			1417503655000
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
 	it( 'should ceil date values', function test() {
 		var start, stop, expected, actual;
 
