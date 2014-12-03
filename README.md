@@ -87,7 +87,7 @@ var arr = datespace( 1417503655000, 1417503655001, 3 );
 
 where sub-millisecond values are truncated by the [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
 
-By default, fractional timestamps are floored. To specify that timestamps always be rounded up or to the nearest integer __when converted to [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects__, set the `round` option (default: `floor`).
+By default, fractional timestamps are floored. To specify that timestamps always be rounded up or to the nearest millisecond __when converted to [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects__, set the `round` option (default: `floor`).
 
 ``` javascript
 // Equivalent of Math.ceil():
