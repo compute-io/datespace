@@ -31,7 +31,15 @@ var stop = '2014-12-02T07:00:54.973Z',
 	start = new Date( stop ) - 60000;
 
 var arr = datespace( start, stop, 6 );
-// returns []
+/* returns [
+	'Mon Dec 01 2014 22:59:54 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:06 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:18 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:30 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:42 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:54 GMT-0800 (PST)'
+]
+*/
 ```
 
 The `start` and `stop` times may be either [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects, date strings, Unix timestamps, or JavaScript timestamps.
@@ -44,14 +52,30 @@ stop = 1417503654973;
 start = new Date( stop - 60000 );
 
 arr = datespace( start, stop, 6 );
-// returns []
+/* returns [
+	'Mon Dec 01 2014 22:59:54 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:06 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:18 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:30 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:42 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:54 GMT-0800 (PST)'
+]
+*/
 
 // Unix timestamps:
 stop = 1417503655;
 start = stop - 60;
 
 arr = datespace( start, stop, 6 );
-// returns []
+/* returns [
+	'Mon Dec 01 2014 22:59:54 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:06 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:18 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:30 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:42 GMT-0800 (PST)',
+	'Mon Dec 01 2014 23:00:54 GMT-0800 (PST)'
+]
+*/
 ```
 
 The output `array` is guaranteed to include the `start` and `end` times. Beware, however, that values between the `start` and `end` are subject to rounding errors. For example,
@@ -61,9 +85,9 @@ var arr = datespace( 1417503655000, 1417503655001, 3 );
 // returns [ 1417503655000, 1417503655000, 1417503655001 ]
 ```
 
-where sub-milliseconds are truncated by the [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
+where sub-millisecond values are truncated by the [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) constructor. Duplicate values should only be a problem when the interval separating consecutive times is less than a millisecond. As the interval separating consecutive dates goes to infinity, the quantization noise introduced by millisecond resolution is negligible.
 
-By default, fractional timestamps are floored. To specify that timestamps always be rounded up or to the nearest integer, set the `round` option (default: `floor`).
+By default, fractional timestamps are floored. To specify that timestamps always be rounded up or to the nearest integer __when converted to [`Date`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) objects__, set the `round` option (default: `floor`).
 
 ``` javascript
 // Equivalent of Math.ceil():
@@ -91,8 +115,8 @@ var datespace = require( 'compute-datespace' ),
 	stop,
 	arr;
 
-start = '2014-12-02T07:00:54.973Z';
-stop = new Date( start ) - 100000;
+stop = '2014-12-02T07:00:54.973Z';
+start = new Date( stop ) - 100000;
 
 // Default behavior:
 arr = datespace( start, stop );

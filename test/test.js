@@ -208,4 +208,158 @@ describe( 'compute-datespace', function tests() {
 		assert.deepEqual( actual, [] );
 	});
 
+	it( 'should return an array of `Date` objects', function test() {
+		var start, stop, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5000;
+
+		actual = datespace( start, stop );
+
+		assert.isArray( actual );
+		for ( var i = 0; i < actual.length; i++ ) {
+			assert.ok( actual[i] instanceof Date );
+		}
+	});
+
+	it( 'should supply a default length', function test() {
+		var start, stop, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5000;
+
+		actual = datespace( start, stop, { 'round': 'floor' });
+
+		assert.ok( actual.length );
+		assert.ok( actual[0] < actual[1] );
+	});
+
+	it( 'should output both incremental and decremental arrays', function test() {
+		var start, stop, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5000;
+
+		// Incremental:
+		actual = datespace( start, stop, { 'round': 'floor' });
+
+		assert.ok( actual[0] < actual[1] );
+
+		// Decremental:
+		actual = datespace( stop, start, { 'round': 'round' });
+
+		assert.ok( actual[0] > actual[1] );
+	});
+
+	it( 'should create a linearly spaced array of dates', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5000;
+
+		actual = datespace( start, stop, 6 );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503650973,
+			1417503651973,
+			1417503652973,
+			1417503653973,
+			1417503654973,
+			1417503655973
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should ceil date values', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5;
+
+		actual = datespace( start, stop, 11, {'round': 'ceil' } );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503655968,
+			1417503655969,
+			1417503655969,
+			1417503655970,
+			1417503655970,
+			1417503655971,
+			1417503655971,
+			1417503655972,
+			1417503655972,
+			1417503655973,
+			1417503655973
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should floor date values', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5;
+
+		actual = datespace( start, stop, 11, {'round': 'floor' } );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503655968,
+			1417503655968,
+			1417503655969,
+			1417503655969,
+			1417503655970,
+			1417503655970,
+			1417503655971,
+			1417503655971,
+			1417503655972,
+			1417503655972,
+			1417503655973
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
+	it( 'should round date values', function test() {
+		var start, stop, expected, actual;
+
+		stop = '2014-12-02T07:00:55.973Z';
+		start = new Date( stop ) - 5;
+
+		actual = datespace( start, stop, 11, {'round': 'round' } );
+
+		for ( var i = 0; i < actual.length; i++ ) {
+			actual[ i ] = actual[ i ].getTime();
+		}
+
+		expected = [
+			1417503655968,
+			1417503655969,
+			1417503655969,
+			1417503655970,
+			1417503655970,
+			1417503655971,
+			1417503655971,
+			1417503655972,
+			1417503655972,
+			1417503655973,
+			1417503655973
+		];
+
+		assert.deepEqual( actual, expected );
+	});
+
 });
