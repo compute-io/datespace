@@ -26,9 +26,3 @@ console.log( arr.join( '\n' ) );
 console.log( '\nDecremented values:' );
 arr = datespace( stop, start, 11 );
 console.log( arr.join( '\n' ) );
-
-var stop = '2014-12-02T07:00:54.973Z',
-	start = new Date( stop ) - 60000;
-
-var arr = datespace( start, stop, 6 );
-console.log( arr );
