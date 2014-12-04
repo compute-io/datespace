@@ -101,8 +101,8 @@ describe( 'compute-datespace', function tests() {
 		];
 
 		for ( var i = 0; i < values.length; i++ ) {
-			expect( badValue1( values[i] ) ).to.throw( Error );
-			expect( badValue2( values[i] ) ).to.throw( Error );
+			expect( badValue1( values[i] ) ).to.throw( TypeError );
+			expect( badValue2( values[i] ) ).to.throw( TypeError );
 		}
 
 		function badValue1( value ) {
